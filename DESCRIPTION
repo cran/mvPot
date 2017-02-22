@@ -2,19 +2,19 @@ Package: mvPot
 Type: Package
 Title: Multivariate Peaks-over-Threshold Modelling for Spatial Extreme
         Events
-Version: 0.1.1
-Date: 2016-07-11
+Version: 0.1.2
+Date: 2017-02-21
 Authors@R: person("Raphael", "de Fondeville", email = "raphael.de-fondeville@epfl.ch",
   role = c("aut", "cre"))
 Description: Tools for high-dimensional peaks-over-threshold inference and simulation
   of spatial extremal processes.
 License: GPL-2
 Imports: MASS, evd, numbers, gmp
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 URL: http://github.com/r-fndv/mvPot
 NeedsCompilation: yes
-Packaged: 2016-07-11 13:02:32 UTC; dedeloye
+Packaged: 2017-02-22 14:23:00 UTC; dedeloye
 Author: Raphael de Fondeville [aut, cre]
 Maintainer: Raphael de Fondeville <raphael.de-fondeville@epfl.ch>
 Repository: CRAN
-Date/Publication: 2016-07-11 19:07:28
+Date/Publication: 2017-02-22 17:15:35
