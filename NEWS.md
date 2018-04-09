@@ -1,3 +1,11 @@
+# mvPot 0.1.4
+
+* New functions censoredLikelihoodXS and rExtremalStudentParetoProcess. 
+* Censored likelihood for Brown-Resnick renamed censoredLikelihoodBR.
+* New efficient simulation algorithm for Pareto process.
+* Remove deprecated method in C code.
+* Correction of typos.
+
 # mvPot 0.1.3
 
 * Correction of cluster definition condition for parallel computing.

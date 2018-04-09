@@ -6,9 +6,10 @@
 #' lattice rules to estimate the distribution function a multivariate normal distribution
 #' as described in Genz, A. and Bretz, F.(2009).
 #'
+#' @author Raphael de Fondeville
 #' @param p Number of samples used for quasi-Monte Carlo estimation. Must be a prime number.
 #' @param upperBound Vector of probabilities, i.e., the upper bound of the integral.
-#' @param cov Covariance matrix of the multivariate normal distribution. Must be semi-positive definite.
+#' @param cov Covariance matrix of the multivariate normal distribution. Must be positive semi-definite.
 #' WARNING: for performance in high-dimensions, no check is performed on the matrix. It is the user responsibility to ensure
 #' that this property is verified.
 #' @param nu Degrees of freedom of the t distribution.
@@ -20,7 +21,7 @@
 #' loc <- expand.grid(1:4, 1:4)
 #' ref <- sample.int(16, 1)
 #'
-#' #Defined degrees of freedom
+#' #Define degrees of freedom
 #' nu <- 3
 #'
 #' #Compute variogram matrix
@@ -48,7 +49,10 @@
 #'             Genz, A. (2013). QSILATMVTV \url{http://www.math.wsu.edu/faculty/genz/software/software.html}
 
 mvTProbQuasiMonteCarlo = function(p, upperBound, cov, nu, genVec){
-
+  if(missing(p) && missing(genVec)){
+    p <- 499L
+    genVec <- genVecQMC(p, nrow(cov))$genVec
+  }
   if(!is.numeric(p) | length(p) > 1) {
     stop('p must be a prime number.')
   }
@@ -61,7 +65,7 @@ mvTProbQuasiMonteCarlo = function(p, upperBound, cov, nu, genVec){
     stop('upperBound must be a numeric matrix')
   }
 
-  if(length(cov[1,]) != length(upperBound) | length(cov[,1]) != length(upperBound)){
+  if(!isTRUE(all(dim(cov) == length(upperBound)))){
     stop('upperBound and cov must have the same dimension')
   }
 
@@ -81,7 +85,8 @@ mvTProbQuasiMonteCarlo = function(p, upperBound, cov, nu, genVec){
            as.double(nu),
            as.double(genVec),
            est = double(length=1),
-           err = double(length=1)
+           err = double(length=1),
+           PACKAGE = "mvPot"
   )
 
   c(estimate = tmp$est, error = tmp$err)
