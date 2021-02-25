@@ -4,7 +4,7 @@
 \alias{mvtNormQuasiMonteCarlo}
 \title{Multivariate normal distribution function}
 \usage{
-mvtNormQuasiMonteCarlo(p, upperBound, cov, genVec)
+mvtNormQuasiMonteCarlo(p, upperBound, cov, genVec, ...)
 }
 \arguments{
 \item{p}{Number of samples used for quasi-Monte Carlo estimation. Must be a prime number.}
@@ -13,12 +13,15 @@ mvtNormQuasiMonteCarlo(p, upperBound, cov, genVec)
 
 \item{cov}{Covariance matrix of the multivariate normal distribution. Must be positive semi-definite.
 WARNING: for performance in high-dimensions, no check is performed on the matrix. It is the user responsibility to ensure
-that this property is verified.}
+that the matrix is positive semi-definite.}
 
 \item{genVec}{Generating vector for the quasi-Monte Carlo procedure. Can be computed using \code{genVecQMC}.}
+
+\item{...}{Additional arguments passed to Cpp routine.}
 }
 \value{
-An estimate of the distribution function along with empirical Monte Carlo error.
+A named vector with components estimate \code{estimate} of the distribution function 
+along \code{error}, 3 times the empirical Monte Carlo standard error over the \code{nrep} replications.
 }
 \description{
 Estimate the multivariate distribution function with quasi-Monte Carlo method.
@@ -26,7 +29,7 @@ Estimate the multivariate distribution function with quasi-Monte Carlo method.
 \details{
 The function uses a quasi-Monte Carlo procedure based on randomly shifted
 lattice rules to estimate the distribution function a multivariate normal distribution
-as described in Genz, A. and Bretz, F.(2009).
+as described in Genz and Bretz (2009) on page 50.
 }
 \examples{
 
@@ -54,7 +57,7 @@ latticeRule <- genVecQMC(p, (nrow(loc) - 1))
 mvtNormQuasiMonteCarlo(latticeRule$primeP, upperBound, cov, latticeRule$genVec)
 }
 \references{
-Genz, A. and Bretz, F. (2009). Computations of Multivariate Normal and t Probabilities, volume 105. Springer, Dordrecht.
+Genz, A. and Bretz, F. (2009). Computations of Multivariate Normal and t Probabilities, volume 105. Springer: Dordrecht.
 
-            Genz, A. (2013). QSILATMVNV \url{http://www.math.wsu.edu/faculty/genz/software/software.html}
+Genz, A. (2013). QSILATMVNV \url{http://www.math.wsu.edu/faculty/genz/software/software.html}
 }

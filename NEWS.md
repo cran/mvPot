@@ -1,3 +1,11 @@
+# mvPot 0.1.5
+
+* Exposed number of replications for integration.
+* Fix to censoredLikelihoodXS for cases when likelihood != "mgp".
+* New option for censoredLikelihoodBR (matrix of data, Poisson and binomial likelihood).
+* Updated documentation.
+* Added reference to tutorial.
+
 # mvPot 0.1.4
 
 * New functions censoredLikelihoodXS and rExtremalStudentParetoProcess. 
@@ -9,7 +17,7 @@
 # mvPot 0.1.3
 
 * Correction of cluster definition condition for parallel computing.
-* Addition of mvTProbQuasiMonteCarlo for efficient quasi Monte Carlo estimation of t ditribution functions.
+* Addition of mvTProbQuasiMonteCarlo for efficient quasi Monte Carlo estimation of t distribution functions.
 
 # mvPot 0.1.2
 

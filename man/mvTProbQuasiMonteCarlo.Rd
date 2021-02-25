@@ -4,7 +4,7 @@
 \alias{mvTProbQuasiMonteCarlo}
 \title{Multivariate t distribution function}
 \usage{
-mvTProbQuasiMonteCarlo(p, upperBound, cov, nu, genVec)
+mvTProbQuasiMonteCarlo(p, upperBound, cov, nu, genVec, ...)
 }
 \arguments{
 \item{p}{Number of samples used for quasi-Monte Carlo estimation. Must be a prime number.}
@@ -12,15 +12,17 @@ mvTProbQuasiMonteCarlo(p, upperBound, cov, nu, genVec)
 \item{upperBound}{Vector of probabilities, i.e., the upper bound of the integral.}
 
 \item{cov}{Covariance matrix of the multivariate normal distribution. Must be positive semi-definite.
-WARNING: for performance in high-dimensions, no check is performed on the matrix. It is the user responsibility to ensure
-that this property is verified.}
+WARNING: for performance in high-dimensions, no check is done to ensure positive-definiteness of the covariance matrix. It is the user responsibility to ensure that this property is verified.}
 
 \item{nu}{Degrees of freedom of the t distribution.}
 
 \item{genVec}{Generating vector for the quasi-Monte Carlo procedure. Can be computed using \code{genVecQMC}.}
+
+\item{...}{Additional arguments passed to Cpp routine.}
 }
 \value{
-An estimate of the distribution function along with empirical Monte Carlo error.
+A named vector with components estimate \code{estimate} of the distribution function 
+along \code{error}, 3 times the empirical Monte Carlo standard error over the \code{nrep} replications.
 }
 \description{
 Estimate the multivariate t distribution function with quasi-Monte Carlo method.
@@ -28,7 +30,9 @@ Estimate the multivariate t distribution function with quasi-Monte Carlo method.
 \details{
 The function uses a quasi-Monte Carlo procedure based on randomly shifted
 lattice rules to estimate the distribution function a multivariate normal distribution
-as described in Genz, A. and Bretz, F.(2009).
+as described in Genz and Bretz (2009) on page 50.
+
+For compatibility reasons, the function handles the univariate case, which is passed on to \code{pt}.
 }
 \examples{
 
@@ -43,7 +47,7 @@ nu <- 3
 variogramMatrix <- ((sqrt((outer(loc[,1],loc[,1],"-"))^2 +
 (outer(loc[,2],loc[,2],"-"))^2)) / 2)^(1.5)
 
-#Define an upper boud
+#Define an upper bound
 upperBound <- variogramMatrix[-ref,ref]
 
 #Compute covariance matrix
@@ -59,9 +63,9 @@ latticeRule <- genVecQMC(p, (nrow(loc) - 1))
 mvTProbQuasiMonteCarlo(latticeRule$primeP, upperBound, cov, nu, latticeRule$genVec)
 }
 \references{
-Genz, A. and Bretz, F. (2009). Computations of Multivariate Normal and t Probabilities, volume 105. Springer, Dordrecht.
+Genz, A. and Bretz, F. (2009). Computations of Multivariate Normal and t Probabilities, volume 105. Springer: Dordrecht.
 
-            Genz, A. (2013). QSILATMVTV \url{http://www.math.wsu.edu/faculty/genz/software/software.html}
+Genz, A. (2013). QSILATMVTV \url{http://www.math.wsu.edu/faculty/genz/software/software.html}
 }
 \author{
 Raphael de Fondeville
