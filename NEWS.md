@@ -1,3 +1,6 @@
+# mvPot 0.1.6
+* Fix an compilation issue on Fedora.
+
 # mvPot 0.1.5
 
 * Exposed number of replications for integration.
